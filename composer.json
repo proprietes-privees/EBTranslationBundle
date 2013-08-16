@@ -1,0 +1,28 @@
+{
+    "name": "emmanuelballery/eb-translationbundle",
+    "description": "EBTranslationBundle",
+    "homepage": "https://github.com/emmanuelballery/EBTranslationBundle.git",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/emmanuelballery/EBTranslationBundle.git"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Emmanuel BALLERY",
+            "email": "emmanuel.ballery@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "EB\\TranslationBundle": ""
+        }
+    },
+    "target-dir": "EB/TranslationBundle"
+}
