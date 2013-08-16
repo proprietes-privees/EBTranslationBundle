@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="eb_translation.translation.class">EB\TranslationBundle\Translation</parameter>
+        <parameter key="eb_translation.twig.extension.translation.class">EB\TranslationBundle\Twig\Extension\TranslationExtension</parameter>
+    </parameters>
+    <services>
+        <service id="eb_translation.translation" class="%eb_translation.translation.class%">
+            <argument type="service" id="router"/>
+            <argument type="service" id="translator"/>
+            <argument>%eb_translation.translation.conf%</argument>
+            <tag name="kernel.event_listener" event="kernel.request"/>
+        </service>
+        <service id="eb_translation.twig.extension.translation" class="%eb_translation.twig.extension.translation.class%">
+            <argument>eb_translation.twig.extension.translation</argument>
+            <argument id="eb_translation.translation" type="service"/>
+            <tag name="twig.extension"/>
+        </service>
+    </services>
+</container>
