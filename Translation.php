@@ -18,44 +18,52 @@ class Translation
      * @var Request
      */
     private $request;
+
     /**
      * @var RouterInterface
      */
     private $router;
+
     /**
      * @var TranslatorInterface
      */
     private $translator;
+
     /**
      * Display routes as classes
      *
      * @var bool
      */
     private $displayRouteAsClass;
+
     /**
      * Class used to track selected links
      *
      * @var string
      */
     private $trackerClass;
+
     /**
      * Replace underscores by points
      *
      * @var bool
      */
-    private $replaceUnderscore = false;
+    private $replaceUnderscore;
+
     /**
      * Root translation path
      *
      * @var string
      */
     private $rootPath;
+
     /**
      * Other suffix translation path
      *
      * @var string[]
      */
     private $paths;
+
     /**
      * Default translation parameters
      *
@@ -67,6 +75,7 @@ class Translation
         'domain' => null,
         'locale' => null,
     );
+
     /**
      * Default link parameters
      *

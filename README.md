@@ -1,31 +1,44 @@
 EBTranslationBundle
 ===================
 
-### Configuration
+This bundle helps me deal with links in my templates.
+
+## Default configuration
 
 ``` yaml
 # app/config/config.yml
 
 eb_translation:
+  # domain where translation are stored
   domain: messages
+  # default locale
   locale: '%locale%'
+  # add route name as class when generating a link
   useRouteAsClass: true
-  replaceUnderscore: false
+  # replace underscores by points in route names to
+  # find its translation : home_index => home.index
+  replaceUnderscore: true
+  # link name structure in translation
   namePath:
     pre: 'page'
     suf: 'name'
+  # link title structure in translation
   titlePath:
     pre: 'page'
     suf: 'title'
+  # link description structure in translation
   descriptionPath:
     pre: 'page'
     suf: 'description'
+  # wether we have to track selected links by adding
+  # a class when the route is the current route and
+  # the class to add
   trackSelectedLinks:
     enable: true
     class: 's'
 ```
 
-### Translation example
+## Translation example base on the default configuration
 
 ``` yaml
 # messages.fr.yml
@@ -36,7 +49,7 @@ page:
     description: 'Home page description'
 ````
 
-### Controller
+## Controller
 
 ``` php
 // SomeController.php
@@ -69,12 +82,12 @@ $translation->title('home');
 $translation->description('home');
 ````
 
-### Twig
+## Twig
 
 ``` jinja
 {# SomeTemplate.html.twig #}
 
-{# You can use translation.something() or t.something() #}
+{# You can use translation.something() or ebt.something() #}
 
 {# @return '<a href="/" title="Home page title">Home page name</a>' #}
 {{ translation.link('home') }}

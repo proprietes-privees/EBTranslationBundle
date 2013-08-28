@@ -15,6 +15,7 @@ class TranslationExtension extends \Twig_Extension
      * @var string
      */
     private $name;
+
     /**
      * @var Translation
      */
@@ -46,7 +47,7 @@ class TranslationExtension extends \Twig_Extension
     public function getGlobals()
     {
         return array(
-            't' => $this->translation,
+            'ebt' => $this->translation,
             'translation' => $this->translation,
         );
     }
