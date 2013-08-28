@@ -9,7 +9,7 @@ This bundle helps me deal with links in my templates.
 # app/config/config.yml
 
 eb_translation:
-  # domain where translation are stored
+  # domain where translations are stored
   domain: messages
   # default locale
   locale: '%locale%'
@@ -17,22 +17,23 @@ eb_translation:
   useRouteAsClass: true
   # replace underscores by points in route names to
   # find its translation : home_index => home.index
+  # create array structures in Yaml
   replaceUnderscore: true
-  # link name structure in translation
+  # link name prefix and suffix in translation
   namePath:
     pre: 'page'
     suf: 'name'
-  # link title structure in translation
+  # link title prefix and suffix in translation
   titlePath:
     pre: 'page'
     suf: 'title'
-  # link description structure in translation
+  # link description prefix and suffix in translation
   descriptionPath:
     pre: 'page'
     suf: 'description'
   # wether we have to track selected links by adding
-  # a class when the route is the current route and
-  # the class to add
+  # a class when the route is the same as the current
+  # route and the class to add
   trackSelectedLinks:
     enable: true
     class: 's'
