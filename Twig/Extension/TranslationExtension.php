@@ -35,7 +35,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return $name;
+        return $this->name;
     }
 
     /**

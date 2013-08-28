@@ -44,14 +44,29 @@ page:
 /** @var EB\TranslationBundle\Translation $translation */
 $translation = $this->get('eb_translation');
 
-$translation.link('home');                          // <a href="/" title="Home page title">Home page name</a>
-$translation.link('home',{'page':1});               // <a href="/page-1" title="Home page title">Home page name</a>
-$translation.link('home',{},{'name':'something'});  // <a href="/" title="Home page title">something</a>
-$translation.link('home',{},{'title':'something'}); // <a href="/" title="something">Home page name</a>
-$translation.link('home',{},{'class':'something'}); // <a href="/" title="Home page title" class="something">Home page name</a>
-$translation.name('home');                          // Home page name
-$translation.title('home');                         // Home page title
-$translation.description('home');                   // Home page description
+// <a href="/" title="Home page title">Home page name</a>
+$translation->link('home');
+
+// <a href="/page-1" title="Home page title">Home page name</a>
+$translation->link('home',{'page':1});
+
+// <a href="/" title="Home page title">something</a>
+$translation->link('home',{},{'name':'something'});
+
+// <a href="/" title="something">Home page name</a>
+$translation->link('home',{},{'title':'something'});
+
+// <a href="/" title="Home page title" class="something">Home page name</a>
+$translation->link('home',{},{'class':'something'});
+
+// Home page name
+$translation->name('home');
+
+// Home page title
+$translation->title('home');
+
+// Home page description
+$translation->description('home');
 ````
 
 ### Twig
