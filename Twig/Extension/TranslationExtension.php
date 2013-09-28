@@ -40,9 +40,7 @@ class TranslationExtension extends \Twig_Extension
     }
 
     /**
-     * Return string as Twig global
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getGlobals()
     {
@@ -50,5 +48,43 @@ class TranslationExtension extends \Twig_Extension
             'ebt' => $this->translation,
             'translation' => $this->translation,
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions()
+    {
+        return array(
+            'current' => new \Twig_Function_Method($this, 'current', array('is_safe' => array('html'))),
+            'link' => new \Twig_Function_Method($this, 'link', array('is_safe' => array('html'))),
+        );
+    }
+
+    /**
+     * Is this the current route or a children , if yes, add the class
+     *
+     * @param string[] $routes Routes to check
+     * @param string   $class  Class
+     *
+     * @return string
+     */
+    public function current(array $routes, $class = 'active')
+    {
+        foreach ($routes as $route) {
+            if ($this->translation->isCurrentRoute($route)) {
+                return ' class="active"';
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * Alias for Translation::link
+     */
+    public function link()
+    {
+        return call_user_func_array(array($this->translation, 'link'), func_get_args());
     }
 }

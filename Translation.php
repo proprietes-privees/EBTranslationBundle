@@ -160,13 +160,13 @@ class Translation
      */
     public function isCurrentRoute($routeName = null, $strict = false)
     {
-        // Default route
-        $routeName = $routeName ? : $this->getRequest()->attributes->get('_route');
-
         // Request must be defined
         if (null === $request = $this->getRequest()) {
             return null;
         }
+
+        // Default route
+        $routeName = $routeName ? : $this->getRequest()->attributes->get('_route');
 
         // Comparison can be strict
         if ($strict) {
@@ -198,7 +198,8 @@ class Translation
      *   <li>"target": Link target</li>
      *   <li>"rel": Link rel</li>
      *   <li>"style": Link style</li>
-     *   <li>"icon": Link icon</li>
+     *   <li>"icon": Link icon (img)</li>
+     *   <li>"bicon": Link bootstrap icon</li>
      *   <li>"strict": Strict route comparison</li>
      * </ul>
      * @param array  $tp    [optional] Translation parameters
@@ -265,7 +266,7 @@ class Translation
 
         // Link generation
         return call_user_func_array('sprintf', array(
-            '<a%s%s%s%s%s%s%s>%s%s</a>',
+            '<a%s%s%s%s%s%s%s>%s%s%s</a>',
             $this->arg($fp, 'id'),
             $this->arg($fp, 'href'),
             $this->arg($fp, 'title'),
@@ -274,6 +275,7 @@ class Translation
             $this->arg($fp, 'rel'),
             $this->arg($fp, 'style'),
             isset($fp['icon']) ? sprintf('<img src="%s" alt="%s"> ', $fp['icon'], $fp['title']) : '',
+            isset($fp['bicon']) ? sprintf('<i class="icon-%s"></i> ', $fp['bicon']) : '',
             $fp['name'],
         ));
     }
