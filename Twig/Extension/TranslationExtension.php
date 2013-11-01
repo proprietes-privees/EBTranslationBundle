@@ -73,7 +73,7 @@ class TranslationExtension extends \Twig_Extension
     {
         foreach ($routes as $route) {
             if ($this->translation->isCurrentRoute($route)) {
-                return ' class="active"';
+                return sprintf(' class="%s"', $class);
             }
         }
 
