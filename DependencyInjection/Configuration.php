@@ -23,8 +23,8 @@ class Configuration implements ConfigurationInterface
         $children = $rootNode->addDefaultsIfNotSet()->children();
         $children->scalarNode('domain')->defaultValue('messages')->info('Default translation domain.')->example('messages');
         $children->scalarNode('locale')->defaultValue('%locale%')->info('Default translation locale.')->example('%locale%');
-        $children->booleanNode('useRouteAsClass')->defaultValue(true)->info('Add route name as class when generating a link.')->example('true');
-        $children->booleanNode('replaceUnderscore')->defaultValue(false)->info('Replace underscores by point in route names when generating a translation.')->example('false');
+        $children->booleanNode('useRouteAsClass')->defaultTrue()->info('Add route name as class when generating a link.')->example('true');
+        $children->booleanNode('replaceUnderscore')->defaultTrue()->info('Replace underscores by point in route names when generating a translation.')->example('false');
         $children->scalarNode('trackSelectedLinks')->defaultNull()->info('Selected links class.')->example('active');
 
         $pathChildren = $children->arrayNode('path')->addDefaultsIfNotSet()->children();
