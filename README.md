@@ -89,21 +89,22 @@ $translation->description('home');
 {# SomeTemplate.html.twig #}
 
 {# You can use translation.something() or ebt.something() #}
+{# To avoid html excape, you can also directly use link() #}
 
 {# @return '<a href="/" title="Home page title">Home page name</a>' #}
-{{ translation.link('home') }}
+{{ link('home') }}
 
 {# @return '<a href="/page-1" title="Home page title">Home page name</a>' #}
-{{ translation.link('home',{'page':1}) }}
+{{ link('home',{'page':1}) }}
 
 {# @return '<a href="/" title="Home page title">something</a>' #}
-{{ translation.link('home',{},{'name':'something'}) }}
+{{ link('home',{},{'name':'something'}) }}
 
 {# @return '<a href="/" title="something">Home page name</a>' #}
-{{ translation.link('home',{},{'title':'something'}) }}
+{{ link('home',{},{'title':'something'}) }}
 
 {# @return '<a href="/" title="Home page title" class="something">Home page name</a>' #}
-{{ translation.link('home',{},{'class':'something'}) }}
+{{ link('home',{},{'class':'something'}) }}
 
 {# @return 'Home page name' #}
 {{ translation.name('home') }}
