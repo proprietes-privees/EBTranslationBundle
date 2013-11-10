@@ -419,7 +419,12 @@ class Translation
      */
     private function pageTranslation($type, $route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        $route = $route ? : $this->getRequest()->attributes->get('_route');
+        if (null === $route) {
+            if (null === $this->getRequest()) {
+                return '';
+            }
+            $route = $this->getRequest()->attributes->get('_route');
+        }
         if (empty($route) || !is_string($route)) {
             throw new \InvalidArgumentException('You must provide a valid "route".');
         }
