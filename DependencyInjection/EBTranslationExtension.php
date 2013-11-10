@@ -26,9 +26,5 @@ class EBTranslationExtension extends Extension
         // Load services
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
-
-        $container->addAliases(array(
-            'eb_translation' => 'eb_translation.translation',
-        ));
     }
 }
