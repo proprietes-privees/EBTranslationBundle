@@ -156,25 +156,30 @@ class Translation
      * @param string $routeName Current route id
      * @param bool   $strict    Strict mode
      *
-     * @return null|bool
+     * @return bool
      */
     public function isCurrentRoute($routeName = null, $strict = false)
     {
         // Request must be defined
         if (null === $request = $this->getRequest()) {
-            return null;
+            return false;
         }
 
         // Default route
-        $routeName = $routeName ? : $this->getRequest()->attributes->get('_route');
+        $routeAttribute = $this->getRequest()->attributes->get('_route');
+        $routeName = $routeName ? : $routeAttribute;
 
         // Comparison can be strict
         if ($strict) {
-            return (bool)($routeName === $request->attributes->get('_route'));
+            return (bool)($routeName === $routeAttribute);
         }
 
         // Comparison is done by route ID
-        return (bool)(0 === strpos($request->attributes->get('_route'), $routeName));
+        if (0 === strpos($routeAttribute, $routeName . '_') || $routeAttribute === $routeName) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -182,33 +187,33 @@ class Translation
      *
      * @param string $route [optional] Route id
      * @param array  $rp    [optional] Route parameters
-     * <ul>
-     *   <li>Route parameters ...</li>
-     * </ul>
+     *                      <ul>
+     *                      <li>Route parameters ...</li>
+     *                      </ul>
      * @param array  $fp    [optional] Link parameters
-     * <ul>
-     *   <li>"absolute": Whether the link is absolute or not</li>
-     *   <li>"href": Link href</li>
-     *   <li>"title": Link title</li>
-     *   <li>"name": Link name</li>
-     *   <li>"current": Whether the link is the current one or not</li>
-     *   <li>"tag": Link tag</li>
-     *   <li>"class": Link class</li>
-     *   <li>"id": Link id</li>
-     *   <li>"target": Link target</li>
-     *   <li>"rel": Link rel</li>
-     *   <li>"style": Link style</li>
-     *   <li>"icon": Link icon (img)</li>
-     *   <li>"bicon": Link bootstrap icon</li>
-     *   <li>"strict": Strict route comparison</li>
-     * </ul>
+     *                      <ul>
+     *                      <li>"absolute": Whether the link is absolute or not</li>
+     *                      <li>"href": Link href</li>
+     *                      <li>"title": Link title</li>
+     *                      <li>"name": Link name</li>
+     *                      <li>"current": Whether the link is the current one or not</li>
+     *                      <li>"tag": Link tag</li>
+     *                      <li>"class": Link class</li>
+     *                      <li>"id": Link id</li>
+     *                      <li>"target": Link target</li>
+     *                      <li>"rel": Link rel</li>
+     *                      <li>"style": Link style</li>
+     *                      <li>"icon": Link icon (img)</li>
+     *                      <li>"bicon": Link bootstrap icon</li>
+     *                      <li>"strict": Strict route comparison</li>
+     *                      </ul>
      * @param array  $tp    [optional] Translation parameters
-     * <ul>
-     *   <li>"vars": Translation parameters</li>
-     *   <li>"domain": Translation domain</li>
-     *   <li>"locale": Translation locale</li>
-     *   <li>"route": Route</li>
-     * </ul>
+     *                      <ul>
+     *                      <li>"vars": Translation parameters</li>
+     *                      <li>"domain": Translation domain</li>
+     *                      <li>"locale": Translation locale</li>
+     *                      <li>"route": Route</li>
+     *                      </ul>
      *
      * @return mixed
      * @throws \InvalidArgumentException
