@@ -93,6 +93,8 @@ class Translation
         'rel' => null,
         'style' => null,
         'icon' => null,
+        'cicon' => null,
+        'gicon' => null,
         'strict' => false,
     );
 
@@ -153,8 +155,8 @@ class Translation
     /**
      * Current route ?
      *
-     * @param string $routeName Current route id
-     * @param bool   $strict    Strict mode
+     * @param string $routeName [optional] Current route id
+     * @param bool   $strict    [optional] Strict mode
      *
      * @return bool
      */
@@ -205,6 +207,7 @@ class Translation
      *                      <li>"style": Link style</li>
      *                      <li>"icon": Link icon (img)</li>
      *                      <li>"bicon": Link bootstrap icon</li>
+     *                      <li>"gicon": Link bootstrap glyphicon</li>
      *                      <li>"strict": Strict route comparison</li>
      *                      </ul>
      * @param array  $tp    [optional] Translation parameters
@@ -271,7 +274,7 @@ class Translation
 
         // Link generation
         return call_user_func_array('sprintf', array(
-            '<a%s%s%s%s%s%s%s>%s%s%s</a>',
+            '<a%s%s%s%s%s%s%s>%s%s%s%s</a>',
             $this->arg($fp, 'id'),
             $this->arg($fp, 'href'),
             $this->arg($fp, 'title'),
@@ -281,6 +284,7 @@ class Translation
             $this->arg($fp, 'style'),
             isset($fp['icon']) ? sprintf('<img src="%s" alt="%s"> ', $fp['icon'], $fp['title']) : '',
             isset($fp['bicon']) ? sprintf('<i class="icon-%s"></i> ', $fp['bicon']) : '',
+            isset($fp['gicon']) ? sprintf('<span class="glyphicon glyphicon-%s"></span> ', $fp['gicon']) : '',
             $fp['name'],
         ));
     }
@@ -288,7 +292,7 @@ class Translation
     /**
      * Page name for route id
      *
-     * @param string $route      Route id [optional]
+     * @param string $route      [optional] Route id
      * @param array  $parameters [optional] Translation parameters
      * @param string $domain     [optional] Translation domain
      * @param string $locale     [optional] Translation locale
@@ -304,7 +308,7 @@ class Translation
     /**
      * Page title for route id
      *
-     * @param string $route      Route id [optional]
+     * @param string $route      [optional] Route id
      * @param array  $parameters [optional] Translation parameters
      * @param string $domain     [optional] Translation domain
      * @param string $locale     [optional] Translation locale
@@ -320,7 +324,7 @@ class Translation
     /**
      * Page description for route id
      *
-     * @param string $route      Route id [optional]
+     * @param string $route      [optional] Route id
      * @param array  $parameters [optional] Translation parameters
      * @param string $domain     [optional] Translation domain
      * @param string $locale     [optional] Translation locale
@@ -336,7 +340,7 @@ class Translation
     /**
      * Page legent for route id
      *
-     * @param string $route      Route id [optional]
+     * @param string $route      [optional] Route id
      * @param array  $parameters [optional] Translation parameters
      * @param string $domain     [optional] Translation domain
      * @param string $locale     [optional] Translation locale
@@ -352,7 +356,7 @@ class Translation
     /**
      * Page success for route id
      *
-     * @param string $route      Route id [optional]
+     * @param string $route      [optional] Route id
      * @param array  $parameters [optional] Translation parameters
      * @param string $domain     [optional] Translation domain
      * @param string $locale     [optional] Translation locale
@@ -368,7 +372,7 @@ class Translation
     /**
      * Page error for route id
      *
-     * @param string $route      Route id [optional]
+     * @param string $route      [optional] Route id
      * @param array  $parameters [optional] Translation parameters
      * @param string $domain     [optional] Translation domain
      * @param string $locale     [optional] Translation locale
@@ -384,9 +388,9 @@ class Translation
     /**
      * Displaying argument
      *
-     * @param array  $data
-     * @param string $key
-     * @param string $pattern
+     * @param array  $data    Data array
+     * @param string $key     Key
+     * @param string $pattern [optional] Display pattern
      *
      * @return string
      * @throws \InvalidArgumentException
@@ -409,7 +413,7 @@ class Translation
      * Page specific translation for route id
      *
      * @param string $type       Type
-     * @param string $route      Route id [optional]
+     * @param string $route      [optional] Route id
      * @param array  $parameters [optional] Translation parameters
      * @param string $domain     [optional] Translation domain
      * @param string $locale     [optional] Translation locale
