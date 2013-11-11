@@ -427,7 +427,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function trans($type, $route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->pageTranslation('_' . $type, $route, $parameters, $domain, $locale);
+        return $this->pageTranslation($type, $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -479,7 +479,7 @@ class TranslationExtension extends \Twig_Extension
         }
         $domain = $domain ? : $this->dtp['domain'];
         $locale = $locale ? : $this->dtp['locale'];
-        $path = sprintf('%s%s%s', $this->prefix, $route, $typePath);
+        $path = sprintf('%s%s.%s', $this->prefix, $route, $typePath);
         if ($this->replaceUnderscore) {
             $path = str_replace('_', '.', $path);
         }
