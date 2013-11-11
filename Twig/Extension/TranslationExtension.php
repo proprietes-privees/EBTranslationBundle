@@ -161,15 +161,15 @@ class TranslationExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'current' => new \Twig_Function_Method($this, 'current', array('is_safe' => array('html'))),
-            'link' => new \Twig_Function_Method($this, 'link', array('is_safe' => array('html'))),
-            'name' => new \Twig_Function_Method($this, 'name'),
-            'title' => new \Twig_Function_Method($this, 'title'),
-            'description' => new \Twig_Function_Method($this, 'description'),
-            'legend' => new \Twig_Function_Method($this, 'legend'),
-            'success' => new \Twig_Function_Method($this, 'success'),
-            'error' => new \Twig_Function_Method($this, 'error'),
-            'transPage' => new \Twig_Function_Method($this, 'trans'),
+            new \Twig_SimpleFunction('current', array($this, 'current'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('link', array($this, 'link'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('name', array($this, 'name'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('title', array($this, 'title'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('description', array($this, 'description'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('legend', array($this, 'legend'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('success', array($this, 'success'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('error', array($this, 'error'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('transPage', array($this, 'trans'), array('is_safe' => array('html'))),
         );
     }
 
