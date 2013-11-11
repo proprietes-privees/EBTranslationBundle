@@ -56,18 +56,11 @@ class TranslationExtension extends \Twig_Extension
     private $replaceUnderscore;
 
     /**
-     * Root translation path
+     * Translation path prefix
      *
      * @var string
      */
-    private $rootPath;
-
-    /**
-     * Other suffix translation path
-     *
-     * @var string[]
-     */
-    private $paths;
+    private $prefix;
 
     /**
      * Default translation parameters
@@ -126,17 +119,7 @@ class TranslationExtension extends \Twig_Extension
         $this->displayRouteAsClass = (bool)$conf['useRouteAsClass'];
         $this->trackerClass = (string)$conf['trackSelectedLinks'];
         $this->replaceUnderscore = (bool)$conf['replaceUnderscore'];
-
-        // Paths
-        $this->rootPath = $conf['path']['root'];
-        $this->paths = array(
-            'name' => $conf['path']['name'],
-            'title' => $conf['path']['title'],
-            'description' => $conf['path']['description'],
-            'legend' => $conf['path']['legend'],
-            'success' => $conf['path']['success'],
-            'error' => $conf['path']['error'],
-        );
+        $this->prefix = $conf['prefix'];
     }
 
     /**
@@ -347,7 +330,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function name($route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->pageTranslation($this->paths['name'], $route, $parameters, $domain, $locale);
+        return $this->pageTranslation('name', $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -363,7 +346,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function title($route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->pageTranslation($this->paths['title'], $route, $parameters, $domain, $locale);
+        return $this->pageTranslation('title', $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -379,7 +362,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function description($route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->pageTranslation($this->paths['description'], $route, $parameters, $domain, $locale);
+        return $this->pageTranslation('description', $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -395,7 +378,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function legend($route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->pageTranslation($this->paths['legend'], $route, $parameters, $domain, $locale);
+        return $this->pageTranslation('legend', $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -411,7 +394,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function success($route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->pageTranslation($this->paths['success'], $route, $parameters, $domain, $locale);
+        return $this->pageTranslation('success', $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -427,7 +410,7 @@ class TranslationExtension extends \Twig_Extension
      */
     public function error($route = null, array $parameters = array(), $domain = null, $locale = null)
     {
-        return $this->pageTranslation($this->paths['error'], $route, $parameters, $domain, $locale);
+        return $this->pageTranslation('error', $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -496,7 +479,7 @@ class TranslationExtension extends \Twig_Extension
         }
         $domain = $domain ? : $this->dtp['domain'];
         $locale = $locale ? : $this->dtp['locale'];
-        $path = sprintf('%s%s%s', $this->rootPath, $route, $typePath);
+        $path = sprintf('%s%s%s', $this->prefix, $route, $typePath);
         if ($this->replaceUnderscore) {
             $path = str_replace('_', '.', $path);
         }
