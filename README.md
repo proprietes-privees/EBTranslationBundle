@@ -14,29 +14,17 @@ eb_translation:
   # default locale
   locale: '%locale%'
   # add route name as class when generating a link
-  useRouteAsClass: true
+  useRouteAsClass: false
   # replace underscores by points in route names to
   # find its translation : home_index => home.index
   # create array structures in Yaml
   replaceUnderscore: true
-  # link name prefix and suffix in translation
-  namePath:
-    pre: 'page'
-    suf: 'name'
-  # link title prefix and suffix in translation
-  titlePath:
-    pre: 'page'
-    suf: 'title'
-  # link description prefix and suffix in translation
-  descriptionPath:
-    pre: 'page'
-    suf: 'description'
+  # link translations prefix
+  prefix: 'page.'
   # wether we have to track selected links by adding
   # a class when the route is the same as the current
-  # route and the class to add
-  trackSelectedLinks:
-    enable: true
-    class: 's'
+  # route (the class to add, or null)
+  trackSelectedLinks: 'active'
 ```
 
 ## Translation example base on the default configuration
