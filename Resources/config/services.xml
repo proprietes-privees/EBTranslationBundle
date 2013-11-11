@@ -6,7 +6,7 @@
     <services>
         <service id="eb_translation" alias="eb.translation_bundle.twig.extension.translation_extension"/>
         <service id="eb.translation_bundle.twig.extension.translation_extension" class="%eb.translation_bundle.twig.extension.translation_extension.class%">
-            <argument>eb_translation.twig.extension.translation</argument>
+            <argument>eb.translation_bundle.twig.extension.translation_extension</argument>
             <argument type="service" id="router"/>
             <argument type="service" id="translator"/>
             <argument>%eb_translation.translation.conf%</argument>
