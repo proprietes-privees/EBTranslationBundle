@@ -88,9 +88,6 @@ $translation->description('home');
 ``` jinja
 {# SomeTemplate.html.twig #}
 
-{# You can use translation.something() or ebt.something() #}
-{# To avoid html excape, you can also directly use link() #}
-
 {# @return '<a href="/" title="Home page title">Home page name</a>' #}
 {{ link('home') }}
 
@@ -107,11 +104,11 @@ $translation->description('home');
 {{ link('home',{},{'class':'something'}) }}
 
 {# @return 'Home page name' #}
-{{ translation.name('home') }}
+{{ name('home') }}
 
 {# @return 'Home page title' #}
-{{ translation.title('home') }}
+{{ title('home') }}
 
 {# @return 'Home page description' #}
-{{ translation.description('home') }}
+{{ description('home') }}
 ```
