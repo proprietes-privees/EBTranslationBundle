@@ -6,6 +6,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Class TranslationExtension
@@ -152,7 +153,9 @@ class TranslationExtension extends \Twig_Extension
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $this->request = $event->getRequest();
+        if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
+            $this->request = $event->getRequest();
+        }
     }
 
     /**
