@@ -203,9 +203,14 @@ class TranslationExtension extends \Twig_Extension
         }
 
         // Comparison is done by route ID
-        if (0 === strpos($routeAttribute, $routeName . '_') || $routeAttribute === $routeName) {
+        if (0 === strpos($routeAttribute, $routeName . '_') || $routeAttribute == $routeName) {
             return true;
         }
+
+        // Index
+//        if (false !== strpos($routeName, '_index') && false !== strpos($routeAttribute, str_replace('_index', '_', $routeName))) {
+//            return true;
+//        }
 
         return false;
     }
