@@ -132,6 +132,26 @@ class TranslationExtension extends \Twig_Extension
     }
 
     /**
+     * Get Prefix
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * Get Translator
+     *
+     * @return TranslatorInterface
+     */
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    /**
      * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event)
