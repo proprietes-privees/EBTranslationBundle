@@ -89,6 +89,7 @@ class TranslationService
         'icon' => null,
         'cicon' => null,
         'gicon' => null,
+        'ficon' => null,
         'strict' => false,
     );
 
@@ -222,6 +223,7 @@ class TranslationService
      *                      <li>"icon": Link icon (img)</li>
      *                      <li>"bicon": Link bootstrap icon</li>
      *                      <li>"gicon": Link bootstrap glyphicon</li>
+     *                      <li>"ficon": Link font awesome icon</li>
      *                      <li>"strict": Strict route comparison</li>
      *                      </ul>
      * @param array  $tp    [optional] Translation parameters
@@ -293,7 +295,7 @@ class TranslationService
 
         // Link generation
         return call_user_func_array('sprintf', array(
-            '<a%s%s%s%s%s%s%s>%s%s%s%s</a>',
+            '<a%s%s%s%s%s%s%s>%s%s%s%s%s</a>',
             $this->arg($fp, 'id'),
             $this->arg($fp, 'href'),
             $this->arg($fp, 'title'),
@@ -304,6 +306,7 @@ class TranslationService
             isset($fp['icon']) ? sprintf('<img src="%s" alt="%s"> ', $fp['icon'], $fp['title']) : '',
             isset($fp['bicon']) ? sprintf('<i class="icon-%s"></i> ', $fp['bicon']) : '',
             isset($fp['gicon']) ? sprintf('<span class="glyphicon glyphicon-%s"></span> ', $fp['gicon']) : '',
+            isset($fp['ficon']) ? sprintf('<span class="fa fa-%s"></span> ', $fp['ficon']) : '',
             $fp['name'],
         ));
     }
@@ -436,10 +439,6 @@ class TranslationService
         // Must exist
         if (!isset($data[$key])) {
             return '';
-        }
-        // Validation
-        if (!is_string($data[$key]) && !is_numeric($data[$key])) {
-            throw new \InvalidArgumentException(sprintf('You must provide a valid "%s", %s given [%s].', $key, gettype($data[$key]), $data[$key]));
         }
 
         return sprintf($pattern, $key, $data[$key]);
