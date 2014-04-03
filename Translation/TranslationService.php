@@ -146,12 +146,13 @@ class TranslationService
     /**
      * Is this the current route or a children , if yes, add the class
      *
-     * @param string[]|string $routes Routes to check
-     * @param string          $class  Class
+     * @param string[]|string $routes  Routes to check
+     * @param string          $class   Class
+     * @param null|string     $default Default class
      *
      * @return string
      */
-    public function current($routes, $class = 'active')
+    public function current($routes, $class = 'active', $default = null)
     {
         if (false === is_array($routes)) {
             $routes = array($routes);
@@ -159,8 +160,12 @@ class TranslationService
 
         foreach ($routes as $route) {
             if ($this->isCurrentRoute($route)) {
-                return sprintf(' class="%s"', $class);
+                return sprintf(' class="%s"', trim(sprintf('%s %s', $default, $class)));
             }
+        }
+
+        if (null !== $default) {
+            return sprintf(' class="%s"', $default);
         }
 
         return '';
