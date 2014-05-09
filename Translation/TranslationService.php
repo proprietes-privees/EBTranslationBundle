@@ -463,7 +463,7 @@ class TranslationService
      * @param string $locale     [optional] Translation locale
      *
      * @throws \InvalidArgumentException
-     * @return string
+     * @return null|string
      */
     private function pageTranslation($typePath, $route = null, array $parameters = array(), $domain = null, $locale = null)
     {
@@ -483,6 +483,8 @@ class TranslationService
             $path = str_replace('_', '.', $path);
         }
 
-        return $this->translator->trans($path, $parameters, $domain, $locale);
+        $trans = $this->translator->trans($path, $parameters, $domain, $locale);
+
+        return (null !== $trans && $trans !== $path) ? $trans : null;
     }
 }
