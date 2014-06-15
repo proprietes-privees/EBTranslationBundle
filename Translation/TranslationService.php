@@ -63,25 +63,25 @@ class TranslationService
      *
      * @var array
      */
-    private $dtp = array(
+    private $dtp = [
         'route' => null,
-        'vars' => array(),
+        'vars' => [],
         'domain' => null,
         'locale' => null,
-    );
+    ];
 
     /**
      * Default link parameters
      *
      * @var array
      */
-    private $dlp = array(
+    private $dlp = [
         'href' => null,
         'title' => null,
         'name' => null,
         'current' => null,
         'tag' => '',
-        'class' => array(),
+        'class' => [],
         'id' => null,
         'target' => null,
         'rel' => null,
@@ -91,14 +91,14 @@ class TranslationService
         'gicon' => null,
         'ficon' => null,
         'strict' => false,
-    );
+    ];
 
     /**
      * @param RouterInterface     $router     Router
      * @param TranslatorInterface $translator Translator
      * @param array               $conf       Bundle configuration
      */
-    public function __construct(RouterInterface $router, TranslatorInterface $translator, array $conf = array())
+    public function __construct(RouterInterface $router, TranslatorInterface $translator, array $conf = [])
     {
         // Dependencies
         $this->router = $router;
@@ -155,7 +155,7 @@ class TranslationService
     public function current($routes, $class = 'active', $default = null)
     {
         if (false === is_array($routes)) {
-            $routes = array($routes);
+            $routes = [$routes];
         }
 
         foreach ($routes as $route) {
@@ -247,7 +247,7 @@ class TranslationService
      * @throws \InvalidArgumentException
      * @todo fp validations
      */
-    public function link($route = null, array $rp = array(), array $fp = array(), array $tp = array())
+    public function link($route = null, array $rp = [], array $fp = [], array $tp = [])
     {
         // Route
         if (null === $route) {
@@ -303,7 +303,7 @@ class TranslationService
         $fp['class'] = implode(' ', array_unique(array_filter($fp['class'])));
 
         // Link generation
-        return call_user_func_array('sprintf', array(
+        return call_user_func_array('sprintf', [
             '<a%s%s%s%s%s%s%s>%s%s%s%s%s</a>',
             $this->arg($fp, 'id'),
             $this->arg($fp, 'href'),
@@ -317,7 +317,7 @@ class TranslationService
             isset($fp['gicon']) ? sprintf('<span class="glyphicon glyphicon-%s"></span> ', $fp['gicon']) : '',
             isset($fp['ficon']) ? sprintf('<span class="fa fa-%s"></span> ', $fp['ficon']) : '',
             $fp['name'],
-        ));
+        ]);
     }
 
     /**
@@ -331,7 +331,7 @@ class TranslationService
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function name($route = null, array $parameters = array(), $domain = null, $locale = null)
+    public function name($route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation('name', $route, $parameters, $domain, $locale);
     }
@@ -347,7 +347,7 @@ class TranslationService
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function title($route = null, array $parameters = array(), $domain = null, $locale = null)
+    public function title($route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation('title', $route, $parameters, $domain, $locale);
     }
@@ -363,7 +363,7 @@ class TranslationService
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function description($route = null, array $parameters = array(), $domain = null, $locale = null)
+    public function description($route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation('description', $route, $parameters, $domain, $locale);
     }
@@ -379,7 +379,7 @@ class TranslationService
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function legend($route = null, array $parameters = array(), $domain = null, $locale = null)
+    public function legend($route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation('legend', $route, $parameters, $domain, $locale);
     }
@@ -395,7 +395,7 @@ class TranslationService
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function success($route = null, array $parameters = array(), $domain = null, $locale = null)
+    public function success($route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation('success', $route, $parameters, $domain, $locale);
     }
@@ -411,7 +411,7 @@ class TranslationService
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function error($route = null, array $parameters = array(), $domain = null, $locale = null)
+    public function error($route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation('error', $route, $parameters, $domain, $locale);
     }
@@ -428,7 +428,7 @@ class TranslationService
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function trans($type, $route = null, array $parameters = array(), $domain = null, $locale = null)
+    public function trans($type, $route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation($type, $route, $parameters, $domain, $locale);
     }
@@ -465,7 +465,7 @@ class TranslationService
      * @throws \InvalidArgumentException
      * @return null|string
      */
-    private function pageTranslation($typePath, $route = null, array $parameters = array(), $domain = null, $locale = null)
+    private function pageTranslation($typePath, $route = null, array $parameters = [], $domain = null, $locale = null)
     {
         if (null === $route) {
             if (null === $this->request) {

@@ -45,16 +45,16 @@ class TranslationExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('current', array($this->translation, 'current'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('link', array($this->translation, 'link'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('name', array($this->translation, 'name'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('title', array($this->translation, 'title'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('description', array($this->translation, 'description'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('legend', array($this->translation, 'legend'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('success', array($this->translation, 'success'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('error', array($this->translation, 'error'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('transPage', array($this->translation, 'trans'), array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('current', [$this->translation, 'current'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('link', [$this->translation, 'link'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('name', [$this->translation, 'name'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('title', [$this->translation, 'title'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('description', [$this->translation, 'description'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('legend', [$this->translation, 'legend'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('success', [$this->translation, 'success'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('error', [$this->translation, 'error'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('transPage', [$this->translation, 'trans'], ['is_safe' => ['html']]),
+        ];
     }
 }
