@@ -1,0 +1,18 @@
+page:
+  validator:
+    index: {name: Validateur}
+    comment:
+      index: {name: Commentaires}
+      read: {name: '%entity%'}
+    employer:
+      index: {name: Employeurs}
+      read: {name: '%entity%'}
+    payment:
+      index: {name: Paiements}
+      read: {name: '%entity%'}
+    sector:
+      index: {name: Secteurs}
+      read: {name: '%entity%'}
+    user:
+      index: {name: Utilisateurs}
+      read: {name: '%entity%'}

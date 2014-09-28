@@ -2,11 +2,11 @@
 
 namespace EB\TranslationBundle\Translation;
 
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class TranslationService
@@ -321,6 +321,57 @@ class TranslationService
     }
 
     /**
+     * Page title for route id
+     *
+     * @param string $route      [optional] Route id
+     * @param array  $parameters [optional] Translation parameters
+     * @param string $domain     [optional] Translation domain
+     * @param string $locale     [optional] Translation locale
+     *
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    public function title($route = null, array $parameters = [], $domain = null, $locale = null)
+    {
+        return $this->pageTranslation('title', $route, $parameters, $domain, $locale) ? : $this->pageTranslation('name', $route, $parameters, $domain, $locale);
+    }
+
+    /**
+     * Page specific translation for route id
+     *
+     * @param string $typePath   Type path
+     * @param string $route      [optional] Route id
+     * @param array  $parameters [optional] Translation parameters
+     * @param string $domain     [optional] Translation domain
+     * @param string $locale     [optional] Translation locale
+     *
+     * @throws \InvalidArgumentException
+     * @return null|string
+     */
+    private function pageTranslation($typePath, $route = null, array $parameters = [], $domain = null, $locale = null)
+    {
+        if (null === $route) {
+            if (null === $this->request) {
+                return '';
+            }
+            $route = $this->request->attributes->get('_route');
+        }
+        if (empty($route) || !is_string($route)) {
+            throw new \InvalidArgumentException('You must provide a valid "route".');
+        }
+        $domain = $domain ? : $this->dtp['domain'];
+        $locale = $locale ? : $this->dtp['locale'];
+        $path = sprintf('%s%s.%s', $this->prefix, $route, $typePath);
+        if ($this->replaceUnderscore) {
+            $path = str_replace('_', '.', $path);
+        }
+
+        $trans = $this->translator->trans($path, $parameters, $domain, $locale);
+
+        return (null !== $trans && $trans !== $path) ? $trans : null;
+    }
+
+    /**
      * Page name for route id
      *
      * @param string $route      [optional] Route id
@@ -337,19 +388,23 @@ class TranslationService
     }
 
     /**
-     * Page title for route id
+     * Displaying argument
      *
-     * @param string $route      [optional] Route id
-     * @param array  $parameters [optional] Translation parameters
-     * @param string $domain     [optional] Translation domain
-     * @param string $locale     [optional] Translation locale
+     * @param array  $data    Data array
+     * @param string $key     Key
+     * @param string $pattern [optional] Display pattern
      *
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function title($route = null, array $parameters = [], $domain = null, $locale = null)
+    private function arg(array $data, $key, $pattern = ' %s="%s"')
     {
-        return $this->pageTranslation('title', $route, $parameters, $domain, $locale);
+        // Must exist
+        if (!isset($data[$key])) {
+            return '';
+        }
+
+        return sprintf($pattern, $key, $data[$key]);
     }
 
     /**
@@ -365,7 +420,7 @@ class TranslationService
      */
     public function description($route = null, array $parameters = [], $domain = null, $locale = null)
     {
-        return $this->pageTranslation('description', $route, $parameters, $domain, $locale);
+        return $this->pageTranslation('description', $route, $parameters, $domain, $locale) ? : $this->pageTranslation('title', $route, $parameters, $domain, $locale);
     }
 
     /**
@@ -431,60 +486,5 @@ class TranslationService
     public function trans($type, $route = null, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->pageTranslation($type, $route, $parameters, $domain, $locale);
-    }
-
-    /**
-     * Displaying argument
-     *
-     * @param array  $data    Data array
-     * @param string $key     Key
-     * @param string $pattern [optional] Display pattern
-     *
-     * @return string
-     * @throws \InvalidArgumentException
-     */
-    private function arg(array $data, $key, $pattern = ' %s="%s"')
-    {
-        // Must exist
-        if (!isset($data[$key])) {
-            return '';
-        }
-
-        return sprintf($pattern, $key, $data[$key]);
-    }
-
-    /**
-     * Page specific translation for route id
-     *
-     * @param string $typePath   Type path
-     * @param string $route      [optional] Route id
-     * @param array  $parameters [optional] Translation parameters
-     * @param string $domain     [optional] Translation domain
-     * @param string $locale     [optional] Translation locale
-     *
-     * @throws \InvalidArgumentException
-     * @return null|string
-     */
-    private function pageTranslation($typePath, $route = null, array $parameters = [], $domain = null, $locale = null)
-    {
-        if (null === $route) {
-            if (null === $this->request) {
-                return '';
-            }
-            $route = $this->request->attributes->get('_route');
-        }
-        if (empty($route) || !is_string($route)) {
-            throw new \InvalidArgumentException('You must provide a valid "route".');
-        }
-        $domain = $domain ? : $this->dtp['domain'];
-        $locale = $locale ? : $this->dtp['locale'];
-        $path = sprintf('%s%s.%s', $this->prefix, $route, $typePath);
-        if ($this->replaceUnderscore) {
-            $path = str_replace('_', '.', $path);
-        }
-
-        $trans = $this->translator->trans($path, $parameters, $domain, $locale);
-
-        return (null !== $trans && $trans !== $path) ? $trans : null;
     }
 }
