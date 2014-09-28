@@ -24,9 +24,8 @@
         "phpunit/phpunit": "*"
     },
     "autoload": {
-        "psr-0": {
-            "EB\\TranslationBundle": ""
+        "psr-4": {
+            "EB\\TranslationBundle\\": ""
         }
-    },
-    "target-dir": "EB/TranslationBundle"
+    }
 }
