@@ -49,6 +49,7 @@ class TranslationExtension extends \Twig_Extension
             new \Twig_SimpleFunction('current', [$this->translation, 'current'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('is_current', [$this->translation, 'isCurrentRoute']),
             new \Twig_SimpleFunction('link', [$this->translation, 'link'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('li_link', [$this, 'createLiLink'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('name', [$this->translation, 'name'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('title', [$this->translation, 'title'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('description', [$this->translation, 'description'], ['is_safe' => ['html']]),
@@ -57,5 +58,17 @@ class TranslationExtension extends \Twig_Extension
             new \Twig_SimpleFunction('error', [$this->translation, 'error'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('transPage', [$this->translation, 'trans'], ['is_safe' => ['html']]),
         ];
+    }
+
+    /**
+     * Create li link
+     *
+     * @param null|string|string[] $routes
+     *
+     * @return string
+     */
+    public function createLiLink($routes = null)
+    {
+        return sprintf('<li%s>%s</li>', $this->translation->current($routes), call_user_func_array([$this->translation, 'link'], func_get_args()));
     }
 }
