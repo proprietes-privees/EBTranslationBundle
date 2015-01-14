@@ -94,23 +94,28 @@ class TranslationService
     ];
 
     /**
-     * @param RouterInterface     $router     Router
-     * @param TranslatorInterface $translator Translator
-     * @param array               $conf       Bundle configuration
+     * @param RouterInterface     $router              Router
+     * @param TranslatorInterface $translator          Translator
+     * @param string              $domain              Translation domain
+     * @param string              $locale              Translation locale
+     * @param bool                $displayRouteAsClass Wether to add route name at each link
+     * @param string              $trackerClass        Class to add when a link is selected
+     * @param bool                $replaceUnderscore   Replace underscore for translation keys
+     * @param string              $prefix              Translation prefix
      */
-    public function __construct(RouterInterface $router, TranslatorInterface $translator, array $conf = [])
+    public function __construct(RouterInterface $router, TranslatorInterface $translator, $domain, $locale, $displayRouteAsClass, $trackerClass, $replaceUnderscore, $prefix)
     {
         // Dependencies
         $this->router = $router;
         $this->translator = $translator;
 
         // Parameters
-        $this->dtp['domain'] = (string)$conf['domain'];
-        $this->dtp['locale'] = (string)$conf['locale'];
-        $this->displayRouteAsClass = (bool)$conf['useRouteAsClass'];
-        $this->trackerClass = (string)$conf['trackSelectedLinks'];
-        $this->replaceUnderscore = (bool)$conf['replaceUnderscore'];
-        $this->prefix = $conf['prefix'];
+        $this->dtp['domain'] = $domain;
+        $this->dtp['locale'] = $locale;
+        $this->displayRouteAsClass = $displayRouteAsClass;
+        $this->trackerClass = $trackerClass;
+        $this->replaceUnderscore = $replaceUnderscore;
+        $this->prefix = $prefix;
     }
 
     /**
@@ -279,7 +284,7 @@ class TranslationService
         }
 
         // Default link parameters
-        $fp['absolute'] = array_key_exists($fp, 'absolute') ? (bool)$fp['absolute'] : false;
+        $fp['absolute'] = array_key_exists('absolute', $fp) ? (bool)$fp['absolute'] : false;
         $this->dlp['href'] = $this->router->generate($route, $rp, $fp['absolute']);
         $this->dlp['title'] = $this->title($route, $tp['vars'], $tp['domain'], $tp['locale']);
         $this->dlp['name'] = $this->name($route, $tp['vars'], $tp['domain'], $tp['locale']);
@@ -287,7 +292,7 @@ class TranslationService
         // Basic default link parameters
         $fp = array_intersect_key(array_merge($this->dlp, $fp), $this->dlp);
         $fp['href'] .= $fp['tag'] ? (0 === mb_strpos($fp['tag'], '#') ? $fp['tag'] : '#' . $fp['tag']) : '';
-        $fp['current'] = array_key_exists($fp, 'current') ? (bool)$fp['current'] : $this->isCurrentRoute($route, (bool)$fp['strict']);
+        $fp['current'] = array_key_exists('current', $fp) ? (bool)$fp['current'] : $this->isCurrentRoute($route, (bool)$fp['strict']);
 
         // Link class
         if (is_string($fp['class'])) {
