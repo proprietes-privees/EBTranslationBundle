@@ -47,6 +47,7 @@ class TranslationExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('current', [$this->translation, 'current'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('is_current', [$this->translation, 'isCurrentRoute']),
             new \Twig_SimpleFunction('link', [$this->translation, 'link'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('name', [$this->translation, 'name'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('title', [$this->translation, 'title'], ['is_safe' => ['html']]),
