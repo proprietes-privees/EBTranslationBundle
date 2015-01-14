@@ -279,7 +279,7 @@ class TranslationService
         }
 
         // Default link parameters
-        $fp['absolute'] = isset($fp['absolute']) ? (bool)$fp['absolute'] : false;
+        $fp['absolute'] = array_key_exists($fp, 'absolute') ? (bool)$fp['absolute'] : false;
         $this->dlp['href'] = $this->router->generate($route, $rp, $fp['absolute']);
         $this->dlp['title'] = $this->title($route, $tp['vars'], $tp['domain'], $tp['locale']);
         $this->dlp['name'] = $this->name($route, $tp['vars'], $tp['domain'], $tp['locale']);
@@ -287,7 +287,7 @@ class TranslationService
         // Basic default link parameters
         $fp = array_intersect_key(array_merge($this->dlp, $fp), $this->dlp);
         $fp['href'] .= $fp['tag'] ? (0 === mb_strpos($fp['tag'], '#') ? $fp['tag'] : '#' . $fp['tag']) : '';
-        $fp['current'] = isset($fp['current']) ? (bool)$fp['current'] : $this->isCurrentRoute($route, (bool)$fp['strict']);
+        $fp['current'] = array_key_exists($fp, 'current') ? (bool)$fp['current'] : $this->isCurrentRoute($route, (bool)$fp['strict']);
 
         // Link class
         if (is_string($fp['class'])) {
