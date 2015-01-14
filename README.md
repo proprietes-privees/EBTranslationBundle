@@ -5,7 +5,7 @@ This bundle helps me deal with links in my templates.
 
 ## Default configuration
 
-``` yaml
+```yaml
 # app/config/config.yml
 
 eb_translation:
@@ -14,22 +14,22 @@ eb_translation:
   # default locale
   locale: '%locale%'
   # add route name as class when generating a link
-  useRouteAsClass: false
+  use_route_as_class: false
   # replace underscores by points in route names to
   # find its translation : home_index => home.index
   # create array structures in Yaml
-  replaceUnderscore: true
+  replace_underscore: true
   # link translations prefix
   prefix: 'page.'
   # wether we have to track selected links by adding
   # a class when the route is the same as the current
   # route (the class to add, or null)
-  trackSelectedLinks: 'active'
+  track_selected_links: 'active'
 ```
 
 ## Translation example base on the default configuration
 
-``` yaml
+```yaml
 # messages.fr.yml
 page:
   home:
@@ -40,7 +40,7 @@ page:
 
 ## Controller
 
-``` php
+```php
 // SomeController.php
 
 /** @var EB\TranslationBundle\Translation $translation */
@@ -73,7 +73,7 @@ $translation->description('home');
 
 ## Twig
 
-``` jinja
+```jinja
 {# SomeTemplate.html.twig #}
 
 {# @return '<a href="/" title="Home page title">Home page name</a>' #}
