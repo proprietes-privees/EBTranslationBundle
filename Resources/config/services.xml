@@ -9,7 +9,12 @@
         <service id="eb.translation_bundle.translation.translation_service" class="%eb.translation_bundle.translation.translation_service.class%">
             <argument type="service" id="router"/>
             <argument type="service" id="translator"/>
-            <argument>%eb_translation.translation.conf%</argument>
+            <argument>%eb_translation.translation.domain%</argument>
+            <argument>%eb_translation.translation.locale%</argument>
+            <argument>%eb_translation.translation.use_route_as_class%</argument>
+            <argument>%eb_translation.translation.replace_underscore%</argument>
+            <argument>%eb_translation.translation.track_selected_links%</argument>
+            <argument>%eb_translation.translation.prefix%</argument>
             <tag name="kernel.event_listener" event="kernel.request"/>
         </service>
         <service id="eb.translation_bundle.twig.extension.translation_extension" class="%eb.translation_bundle.twig.extension.translation_extension.class%">
