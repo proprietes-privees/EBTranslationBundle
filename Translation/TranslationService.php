@@ -5,15 +5,16 @@ namespace EB\TranslationBundle\Translation;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Class TranslationService
+ * Class Translator
  *
  * @author "Emmanuel BALLERY" <emmanuel.ballery@gmail.com>
  */
-class TranslationService
+class Translator
 {
     /**
      * @var Request
@@ -285,7 +286,7 @@ class TranslationService
 
         // Default link parameters
         $fp['absolute'] = array_key_exists('absolute', $fp) ? (bool)$fp['absolute'] : false;
-        $this->dlp['href'] = $this->router->generate($route, $rp, $fp['absolute']);
+        $this->dlp['href'] = $this->router->generate($route, $rp, $fp['absolute'] ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::RELATIVE_PATH);
         $this->dlp['title'] = $this->title($route, $tp['vars'], $tp['domain'], $tp['locale']);
         $this->dlp['name'] = $this->name($route, $tp['vars'], $tp['domain'], $tp['locale']);
 
