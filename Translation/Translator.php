@@ -286,7 +286,7 @@ class Translator
 
         // Default link parameters
         $fp['absolute'] = array_key_exists('absolute', $fp) ? (bool)$fp['absolute'] : false;
-        $this->dlp['href'] = $this->router->generate($route, $rp, $fp['absolute'] ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::RELATIVE_PATH);
+        $this->dlp['href'] = $this->router->generate($route, $rp, $fp['absolute'] ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH);
         $this->dlp['title'] = $this->title($route, $tp['vars'], $tp['domain'], $tp['locale']);
         $this->dlp['name'] = $this->name($route, $tp['vars'], $tp['domain'], $tp['locale']);
 
