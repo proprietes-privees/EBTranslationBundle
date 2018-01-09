@@ -1,7 +1,7 @@
 {
-    "name": "emmanuelballery/eb-translationbundle",
+    "name": "proprietes-privees/eb-translationbundle",
     "description": "EBTranslationBundle",
-    "homepage": "https://github.com/emmanuelballery/EBTranslationBundle.git",
+    "homepage": "https://github.com/proprietes-privees/EBTranslationBundle.git",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
